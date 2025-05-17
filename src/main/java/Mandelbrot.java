@@ -1,18 +1,24 @@
-
-
 import processing.core.*;
 
 public class Mandelbrot extends PApplet {
 
-    double zoom = 200;
-    double xOffset = -400, yOffset = -300;
+    private final int FRAME_WIDTH = 500, FRAME_HEIGHT = 325;
+    private final int MAX_ITERATIONS = 100;
+    double zoom = 150;
+    double xOffset = (double) -FRAME_WIDTH /1.5, yOffset = (double) -FRAME_HEIGHT /2;
 
     public static void main(String[] args) {
         PApplet.main("Mandelbrot");
     }
 
+    private void reset() {
+        zoom = 150;
+        xOffset = (double) -FRAME_WIDTH /1.5;
+        yOffset = (double) -FRAME_HEIGHT /2;
+    }
+
     public void settings() {
-        size(800, 600);
+        size(FRAME_WIDTH, FRAME_HEIGHT);
     }
 
     public void setup() {
@@ -22,16 +28,12 @@ public class Mandelbrot extends PApplet {
     public void draw() {
         background(0);
 
-        for (int row = 0; row < 600; row++) {
-            for (int col = 0; col < 800; col++) {
-                int iterations = isMandelbrot(translateX(col), translateY(row));
+        for (int row = 0; row < FRAME_HEIGHT; row++) {
+            for (int col = 0; col < FRAME_WIDTH; col++) {
+                int iterations = getDivergingIteration(translateX(col), translateY(row));
 
                 if (iterations > -1) {
-                    set(col, row, color(255 - 2*iterations));
-//                    if (iterations < 50) {
-//                        set(col, row, color(255 - 5*iterations, 0, 0));
-//                    }
-//                    else set(col, row, color(0));
+                    set(col, row, getColour(iterations));
                 }
             }
         }
@@ -42,12 +44,43 @@ public class Mandelbrot extends PApplet {
         text("Zoom = " + Math.round(zoom/2)/100, 20, 20);
     }
 
-    private int isMandelbrot(double real, double imaginary) {
+    public int getColour(int iterations) {
+        iterations = Math.max(0, Math.min(MAX_ITERATIONS, iterations));
+
+        RGB[] colorStops = new RGB[] {
+                new RGB(75, 0, 255),     // Violet
+                new RGB(255, 200, 0),   // Orange
+                new RGB(0, 0, 150)     // Blue
+                //new RGB(255, 255, 255)  // White
+
+        };
+
+        int segmentCount = colorStops.length - 1;
+        double segmentLength = 300.0 / segmentCount;
+
+        int segmentIndex = (int)(iterations / segmentLength);
+        double t = (iterations % segmentLength) / segmentLength;
+
+        if (segmentIndex >= segmentCount) {
+            return color(148, 0, 211);
+        }
+
+        RGB c1 = colorStops[segmentIndex];
+        RGB c2 = colorStops[segmentIndex + 1];
+
+        int r = (int)(c1.getRed()   + (c2.getRed()   - c1.getRed())   * t);
+        int g = (int)(c1.getGreen() + (c2.getGreen() - c1.getGreen()) * t);
+        int b = (int)(c1.getBlue()  + (c2.getBlue()  - c1.getBlue())  * t);
+
+        return color(r, g, b);
+    }
+
+    private int getDivergingIteration(double real, double imaginary) {
         double zReal = 0;
         double zImag = 0;
         int iterations = 0;
 
-        for (; iterations<100; iterations++) {
+        for (; iterations< MAX_ITERATIONS; iterations++) {
             double zRealNew = zReal*zReal - zImag*zImag + real;
             double zImagNew = 2*zReal*zImag + imaginary;
             zReal = zRealNew;
@@ -86,6 +119,7 @@ public class Mandelbrot extends PApplet {
             case 'd' -> xOffset += 10;
             case 'w' -> yOffset -= 10;
             case 's' -> yOffset += 10;
+            case 'r' -> reset();
         }
     }
 }
