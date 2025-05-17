@@ -23,6 +23,7 @@ public class Mandelbrot extends PApplet {
 
     public void setup() {
         background(255);
+        colorMode(HSB, 255);
     }
 
     public void draw() {
@@ -33,7 +34,10 @@ public class Mandelbrot extends PApplet {
                 int iterations = getDivergingIteration(translateX(col), translateY(row));
 
                 if (iterations > -1) {
-                    set(col, row, getColour(iterations));
+                    //set(col, row, getColour(iterations));
+
+                    float hue = map(iterations, 0, MAX_ITERATIONS, 192, 0);
+                    set(col, row, color(hue, 255, 255));
                 }
             }
         }
