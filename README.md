@@ -5,9 +5,9 @@
 		<img src="examples/example1.gif" height="250">
 		<img src="examples/example2.gif" height="250">
 	</p>
+    <p>The Mandelbrot set is infinitely complex.<br>As the zoom increases, a completely unique fractal pattern is generated which is likely to have never been seen before.</p>
 </div>
 
-The Mandelbrot set is infinitely complex. As the zoom increases, a completely unique fractal pattern is generated, meaning that generated images are likely to have never been seen before.
 
 ## How To Run
 
