@@ -4,7 +4,7 @@ public class Mandelbrot extends PApplet {
 
     private final int FRAME_WIDTH = 800, FRAME_HEIGHT = 600;
     private double zoom = 150;
-    private int MAX_ITERATIONS = (int) (50 + Math.log10(zoom) * 25);;
+    private int MAX_ITERATIONS = (int) (50 + Math.log10(zoom) * 25);
     private double xOffset = (double) -FRAME_WIDTH /1.5, yOffset = (double) -FRAME_HEIGHT /2;
     private boolean showZoom = false;
     private boolean centreOnCursor = false;
