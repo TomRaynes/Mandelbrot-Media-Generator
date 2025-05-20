@@ -15,10 +15,9 @@ import java.util.Comparator;
 
 public class MediaGenerator {
 
-    private Mandelbrot mandelbrot;
+    private final Mandelbrot mandelbrot;
     private final int FRAME_WIDTH, FRAME_HEIGHT;
-    private BufferedImage savedFrame;
-    private String mediaPath;
+    private final String mediaPath;
     private int frameIndex = 0;
     private final String storageFolderPath;
     private final String frameFolderPath;
@@ -29,13 +28,12 @@ public class MediaGenerator {
     private boolean generatingGif = false;
     private boolean gifThreadExecuting = false;
 
-
-
     public MediaGenerator(Mandelbrot mandelbrot) {
         this.mandelbrot = mandelbrot;
         FRAME_WIDTH = mandelbrot.getWidth();
         FRAME_HEIGHT = mandelbrot.getHeight();
         storageFolderPath = Paths.get("output").toAbsolutePath().toString();
+        createOutputDirectories();
         frameFolderPath = storageFolderPath + File.separator + "frames";
         mediaPath = storageFolderPath + File.separator + "media";
 
@@ -113,7 +111,7 @@ public class MediaGenerator {
     }
 
     public void generateFrame(boolean screenshot) {
-        savedFrame = new BufferedImage(FRAME_WIDTH, FRAME_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage savedFrame = new BufferedImage(FRAME_WIDTH, FRAME_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         int maxIterations = mandelbrot.getMaxIterations();
         String outputPath;
 
@@ -163,6 +161,18 @@ public class MediaGenerator {
             e.printStackTrace();
             e.getMessage();
             throw new RuntimeException();
+        }
+    }
+
+    private void createOutputDirectories() {
+        String[] names = {"frames", "images", "media"};
+
+        for (String name : names) {
+            File directory = Paths.get(storageFolderPath + File.separator + name).toAbsolutePath().toFile();
+
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
         }
     }
 
