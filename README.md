@@ -12,7 +12,7 @@
 ## How To Run
 
 1. Install Maven
-2. Clone the repo and navigate to it's top level
+2. Clone the repo and navigate to its top level
 3. Run the command: `make mandelbrot`
 
 ## Usage
