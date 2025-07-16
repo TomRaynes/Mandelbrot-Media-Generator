@@ -44,6 +44,9 @@ public class Mandelbrot extends PApplet {
     }
 
     public void draw() {
+
+//        long start = System.currentTimeMillis();
+
         background(0);
         colorMode(HSB, 255);
 
@@ -59,8 +62,11 @@ public class Mandelbrot extends PApplet {
                 double iterations = getDivergingIteration(col, row);
 
                 if (iterations > -1) {
-                    float hue = map((float) iterations, 0, MAX_ITERATIONS, 192, 0);
-                    set(col, row, color(hue, 255, 255));
+                    //float hue = 192 + (-192 * ((float)iterations) / MAX_ITERATIONS);
+                    // float hue = map((float) iterations, 0, MAX_ITERATIONS, 192, 0);
+                    set(col, row, color(
+                            192 + (-192 * ((float)iterations) / MAX_ITERATIONS),
+                            255, 255));
                 }
             }
         }
@@ -70,6 +76,14 @@ public class Mandelbrot extends PApplet {
             fill(255);
             text("Zoom = " + Math.round(zoom/2)/100, 20, 20);
         }
+
+//        long time= System.currentTimeMillis() - start;
+//        totalTime += time;
+//        count++;
+//
+//        if (count%100 == 0) {
+//            System.out.println("average time = " + (totalTime / count) + " (time=" + time + ", count" + count + ")");
+//        }
     }
 
     public int getWidth() {
@@ -81,13 +95,15 @@ public class Mandelbrot extends PApplet {
     }
 
     public double getDivergingIteration(double col, double row) {
-        double real = translateX(col);
-        double imaginary = translateY(row);
+        //double real = translateX(col);
+        double real=(col + xOffset) / zoom;
+        double imaginary = (row + yOffset) / zoom;
+        // double imaginary = translateY(row);
         double zReal = 0;
         double zImag = 0;
         int iterations = 0;
 
-        for (; iterations< MAX_ITERATIONS; iterations++) {
+        for (; iterations < MAX_ITERATIONS; iterations++) {
             double zRealNew = zReal*zReal - zImag*zImag + real;
             double zImagNew = 2*zReal*zImag + imaginary;
             zReal = zRealNew;
@@ -101,10 +117,11 @@ public class Mandelbrot extends PApplet {
             return -1;
         }
 
-        double mag = Math.sqrt(zReal*zReal + zImag*zImag);
-        double logZn = Math.log(mag) / Math.log(2);
-        double nu = Math.log(logZn) / Math.log(2);
-        return iterations + 1 - nu;
+//        double mag = Math.sqrt(zReal*zReal + zImag*zImag);
+//        double logZn = Math.log(mag) / Math.log(2);
+//        double nu = Math.log(logZn) / Math.log(2);
+//        return iterations + 1 - nu;
+        return iterations + 1 - Math.log(Math.log(Math.sqrt(zReal*zReal + zImag*zImag)) / Math.log(2)) / Math.log(2);
     }
 
     private double translateX(double coordX) {

@@ -32,10 +32,10 @@ public class MediaGenerator {
         this.mandelbrot = mandelbrot;
         FRAME_WIDTH = mandelbrot.getWidth();
         FRAME_HEIGHT = mandelbrot.getHeight();
-        storageFolderPath = Paths.get("output").toAbsolutePath().toString();
+        storageFolderPath = Paths.get("").toAbsolutePath().getParent().resolve("Output").toString();
         createOutputDirectories();
-        frameFolderPath = storageFolderPath + File.separator + "frames";
-        mediaPath = storageFolderPath + File.separator + "media";
+        frameFolderPath = storageFolderPath + File.separator + "Frames";
+        mediaPath = storageFolderPath + File.separator + "Media";
 
     }
 
@@ -130,7 +130,7 @@ public class MediaGenerator {
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy:MM:dd HH-mm-ss");
             outputPath = storageFolderPath + File.separator +
-                    "images" + File.separator + "image" + now.format(formatter) + ".png";
+                    "Images" + File.separator + "image" + now.format(formatter) + ".png";
         }
         else outputPath = frameFolderPath + File.separator + "frame" + frameIndex + ".png";
 
@@ -145,7 +145,8 @@ public class MediaGenerator {
 
     private int getMediaNumber() {
         try {
-            File logFile = Paths.get("output" + File.separator + ".log").toAbsolutePath().toFile();
+            File logFile = Paths.get("").toAbsolutePath().getParent()
+                    .resolve("Output" + File.separator + ".log").toFile();
             FileReader reader = new FileReader(logFile);
             BufferedReader buffReader = new BufferedReader(reader);
             String mediaNumberString = buffReader.readLine();
@@ -165,7 +166,7 @@ public class MediaGenerator {
     }
 
     private void createOutputDirectories() {
-        String[] names = {"frames", "images", "media"};
+        String[] names = {"Frames", "Images", "Media"};
 
         for (String name : names) {
             File directory = Paths.get(storageFolderPath + File.separator + name).toAbsolutePath().toFile();
@@ -177,7 +178,8 @@ public class MediaGenerator {
     }
 
     private void deleteOldFrames() {
-        Path framesFolderPath = Paths.get("output" + File.separator + "frames");
+        Path framesFolderPath = Paths.get("").toAbsolutePath().getParent()
+                .resolve("Output" + File.separator + "Frames");
 
         try {
             for (Path frame : Files.newDirectoryStream(framesFolderPath, "*.png")) {
@@ -228,7 +230,7 @@ public class MediaGenerator {
         catch (Exception e) {
             e.printStackTrace();
             e.getMessage();
-            throw new RuntimeException();
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 }
