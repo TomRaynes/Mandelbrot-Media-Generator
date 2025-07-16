@@ -16,8 +16,8 @@ function&nbsp;&nbsp;*z*<sub>*n*＋1</sub> ＝ *z<sub>n</sub>*<sup>2</sup> ＋ *c
 where&nbsp;&nbsp;*z*, *c* ∈ ℂ&nbsp;&nbsp;and&nbsp;&nbsp;*z<sub>0</sub>* ＝ 0. Complex numbers outside the set will diverge to infinity.  
 
 For a given zoom, each pixel on the screen is mapped to a complex number corresponding to the pixel's position 
-relative to the complex plane. If it is in the Mandelbrot set, the pixel is coloured black, and if not, the pixel's 
-colour depends on the number of iterations required for the number to diverge. Divergence after a few 
+relative to the complex plane. If the number is in the Mandelbrot set, the pixel is coloured black, and if not, 
+the pixel's colour depends on the number of iterations required for the number to diverge. Divergence after few 
 iterations gives a blue colour, which becomes increasingly red-shifted as the number of iterations increases.
 
 
