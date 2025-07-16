@@ -12,7 +12,7 @@
 
 This software is used to generate gifs showing a zoom into the boundary of the Mandelbrot set. A complex number,
 *c*, is determined to be in the Mandelbrot set if the
-function&nbsp;&nbsp;*z<sub>n*＋1</sub> ＝ *z<sub>n</sub>*<sup>2</sup> ＋ *c*&nbsp;&nbsp;remains bounded when iterated, 
+function&nbsp;&nbsp;*z*<sub>*n*＋1</sub> ＝ *z<sub>n</sub>*<sup>2</sup> ＋ *c*&nbsp;&nbsp;remains bounded when iterated, 
 where&nbsp;&nbsp;*z*, *c* ∈ ℂ&nbsp;&nbsp;and&nbsp;&nbsp;*z<sub>0</sub>* ＝ 0. Complex numbers outside the set will diverge to infinity.  
 
 For a given zoom, each pixel on the screen is mapped to a complex number corresponding to the pixel's position 
