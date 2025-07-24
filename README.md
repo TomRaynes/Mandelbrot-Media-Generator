@@ -28,7 +28,7 @@ iterations gives a blue colour, which becomes increasingly red-shifted as the nu
 git clone git@github.com:TomRaynes/Mandelbrot-Media-Generator.git
 cd Mandelbrot-Media-Generator
 ```
-2. To start the program:
+2. Start the program
 ```
 ./MMG
 ```
