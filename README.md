@@ -1,4 +1,4 @@
-# Mandelbrot Media Generator
+# Mandelbrot Set Media Generator
 
 <div align="center">
 	<p>
