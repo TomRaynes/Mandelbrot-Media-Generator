@@ -7,7 +7,7 @@
 	</p>
     The Mandelbrot set is infinitely complex.<br>
     As the zoom increases, a completely unique fractal pattern is observed, likely to have never 
-    been seen before. <br><br>
+    been seen before. <br><br><br>
 </div>
 
 This software is used to generate gifs showing a zoom into the boundary of the Mandelbrot set. A complex number,
